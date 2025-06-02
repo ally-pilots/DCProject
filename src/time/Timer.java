@@ -9,7 +9,7 @@ public class Timer implements ITimer {
     public void start()
     {
         totalTime=0;
-        lastResume=System.currentTimeMillis();
+        lastResume=System.nanoTime();
         running=true;
     }
 
@@ -17,7 +17,7 @@ public class Timer implements ITimer {
     {
         if(running)
         {
-            totalTime+=System.currentTimeMillis()-lastResume;
+            totalTime+=System.nanoTime()-lastResume;
             running=false;
         }
         return totalTime;
@@ -27,7 +27,7 @@ public class Timer implements ITimer {
     {
         if(running)
         {
-            long passedTime=System.currentTimeMillis()-lastResume;
+            long passedTime=System.nanoTime()-lastResume;
             totalTime=totalTime+passedTime;
             running=false;
             return passedTime;
@@ -39,7 +39,7 @@ public class Timer implements ITimer {
     {
         if(!running)
         {
-            lastResume=System.currentTimeMillis();
+            lastResume=System.nanoTime();
             running=true;
         }
     }

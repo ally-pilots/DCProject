@@ -3,18 +3,18 @@ package logging;
 public enum TimeUnit{
 Nano,Micro,Milli,Sec;
 
-public double convert(long timeMs) {
+public double convert(long timeNs) {
     switch (this) {
         case Nano:
-            return timeMs * 1_000_000;
+            return timeNs;
         case Micro:
-            return timeMs * 1_000;
+            return timeNs / 1_000.0;
         case Milli:
-            return timeMs;
+            return timeNs/1_000_000.0;
         case Sec:
-            return timeMs / 1_000.0;
+            return timeNs / 1_000_000_000.0;
         default:
-            return timeMs;
+            return timeNs;
     }
 }
 

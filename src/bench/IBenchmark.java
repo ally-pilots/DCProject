@@ -8,6 +8,8 @@ public interface IBenchmark{
     void initialize(Object... parameters);
     void clean();
     void cancel();
+    public void warmup();
+    public String getResult();
 }
 
 

@@ -3,9 +3,7 @@ import logging.*;
 import time.*;
 import bench.*;
 
-import java.util.Timer;
-
-public class test {
+public class TestDemoBenchmark {
     public static void main(String[] args) {
     /*ITimer timer=new time.Timer();
     ILogger log=new ConsoleLogger();
@@ -20,12 +18,16 @@ public class test {
 
         ITimer timer=new time.Timer();
         ILogger log=new ConsoleLogger();
-        IBenchmark bench=new Benchmark();
+        IBenchmark bench=new DemoBenchmark();
         final int workload = 5000;
         bench.initialize(workload);
         timer.start();
         for(int i=0;i<12;i++)
         {
+            if (i == 3)
+                bench.cancel(); // simulare oprire benchmark
+            if(i==4)
+                bench.initialize(workload);
             timer.resume();
             bench.run();
             long time =timer.pause();

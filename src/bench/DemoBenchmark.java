@@ -2,13 +2,13 @@ package bench;
 
 import java.util.Random;
 
-public class Benchmark implements IBenchmark
+public class DemoBenchmark implements IBenchmark
 {
     private int array[];
     private boolean running;
     public void run()
     {
-        if(array==null)
+        if(array==null||!running)
             return;
         for(int i=0;i<array.length-1&&running;i++)
         {
@@ -24,6 +24,7 @@ public class Benchmark implements IBenchmark
         }
     }
 
+
     public void clean()
     {
         array=null;
@@ -34,9 +35,19 @@ public class Benchmark implements IBenchmark
         running=false;
     }
 
+    public String getResult()
+    {
+        return null;
+    }
+
     public void run(Object... parameters)
     {
         run();
+    }
+
+    @Override
+    public void warmup() {
+
     }
 
     public void initialize(Object... parameters)
