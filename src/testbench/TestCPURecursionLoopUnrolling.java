@@ -8,6 +8,8 @@ import logging.TimeUnit;
 import time.*;
 
 public class TestCPURecursionLoopUnrolling {
+
+
     public static void main(String[] args) {
         IBenchmark bench=new CPURecursionLoopUnrolling();
         ILogger logger=new ConsoleLogger();
@@ -15,7 +17,7 @@ public class TestCPURecursionLoopUnrolling {
         TimeUnit timeUnit=TimeUnit.Milli;
         long time;
         double timeInMillis;
-        long load=76000;
+        long load=1000000;
 
         bench.initialize(load);
         bench.warmup();
@@ -23,15 +25,19 @@ public class TestCPURecursionLoopUnrolling {
         //no unrolling
         bench.initialize(load);
         timer.start();
-        /*
-        bench.run(false);
+
+       bench.run(false);
         time = timer.stop();
         logger.write("No unrolling:");
         timeInMillis = timeUnit.convert(time);
         logger.write(String.format("Finished in %.4f Milli", timeInMillis));
+        bench.run(false);
+        time = timer.stop();
+        timeInMillis = timeUnit.convert(time);
+        ((CPURecursionLoopUnrolling) bench).setExecutionTime(timeInMillis);
 
         logger.write("Result: "+bench.getResult());
-
+/*
         // Unrolling level 1
         bench.clean();
         bench.initialize(load);
@@ -41,9 +47,9 @@ public class TestCPURecursionLoopUnrolling {
         logger.write("Unrolling level 1:");
         timeInMillis = timeUnit.convert(time);
         logger.write(String.format("Finished in %.4f Milli", timeInMillis));
-        logger.write("Result: "+bench.getResult());
+        //logger.write("Result: "+bench.getResult());
 
-*/
+/*
         // Unrolling level 5
        bench.clean();
         bench.initialize(load);
@@ -53,7 +59,8 @@ public class TestCPURecursionLoopUnrolling {
         logger.write("Unrolling level 5:");
         timeInMillis = timeUnit.convert(time);
         logger.write(String.format("Finished in %.4f Milli", timeInMillis));
-        logger.write("Result: "+bench.getResult());
+        //logger.write("Result: "+bench.getResult());
+        bench.clean();
 
 /*
         // Unrolling level 15
@@ -65,7 +72,7 @@ public class TestCPURecursionLoopUnrolling {
         logger.write("Unrolling level 15:");
         timeInMillis = timeUnit.convert(time);
         logger.write(String.format("Finished in %.4f Milli", timeInMillis));
-        logger.write("Result: "+bench.getResult());
+        //logger.write("Result: "+bench.getResult());
 */
 
         logger.close();

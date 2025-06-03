@@ -6,13 +6,14 @@ public class DemoBenchmark implements IBenchmark
 {
     private int array[];
     private boolean running;
+    private int size;
     public void run()
     {
         if(array==null||!running)
             return;
-        for(int i=0;i<array.length-1&&running;i++)
+        for(int i=0;i<size-1&&running;i++)
         {
-            for(int j=0;j<array.length-i-1&&running;j++)
+            for(int j=0;j<size-i-1&&running;j++)
             {
                 if(array[j]>array[j+1])
                 {
@@ -47,17 +48,17 @@ public class DemoBenchmark implements IBenchmark
 
     @Override
     public void warmup() {
-
+        run();
     }
 
     public void initialize(Object... parameters)
     {
-        int n= (int) parameters[0];
-        array = new int[n];
+        size= (int) parameters[0];
+        array = new int[size];
         Random r = new Random();
-        for(int i=0;i<n;i++)
+        for(int i=0;i<size;i++)
         {
-            array[i]=r.nextInt(n);
+            array[i]=r.nextInt(size);
         }
         running=true;
     }

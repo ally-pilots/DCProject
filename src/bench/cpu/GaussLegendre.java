@@ -42,7 +42,7 @@ public class GaussLegendre implements IDigitsOfPi {
             t = t.subtract(p.multiply(prevA.subtract(a).pow(2, mathContext), mathContext));
             p = p.multiply(bigTwo);
         }
-        BigDecimal PI=a.add(b).pow(2,mathContext).divide(t.multiply(bigTwo, mathContext), mathContext);
+        BigDecimal PI=a.add(b).pow(2,mathContext).divide(t.multiply(bigFour, mathContext), mathContext);
         return PI;
     }
 

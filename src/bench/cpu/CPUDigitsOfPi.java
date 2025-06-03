@@ -19,7 +19,9 @@ public class CPUDigitsOfPi implements IBenchmark {
 
     public void run()
     {
+
         pi=calculator.calculatePi();
+        System.out.println("Pi: "+pi);
     }
 
     public void run(Object... params)
@@ -52,9 +54,11 @@ public class CPUDigitsOfPi implements IBenchmark {
         {
             case 0:
                 calculator=new GaussLegendre();
+                ((GaussLegendre) calculator).configureCalculator(digits);
                 break;
             case 1:
                 calculator=new BaileyBorwein();
+                ((BaileyBorwein) calculator).configureCalculator(digits);
                 break;
             default: throw new IllegalArgumentException("Unknown algorithm");
         }

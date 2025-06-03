@@ -23,9 +23,9 @@ public class ConsoleLogger implements ILogger{
         System.out.println();
     }
 
-    public void writeTime(String message, long timeMs,TimeUnit unit)
+    public void writeTime(String message, long timeNs,TimeUnit unit)
     {
-        System.out.printf("%s: %3f %s%n",message,unit.convert(timeMs),unit.suffix());
+        System.out.printf("%s: %3f %s%n",message,unit.convert(timeNs),unit.suffix());
     }
 
 }

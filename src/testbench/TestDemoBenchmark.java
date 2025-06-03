@@ -21,11 +21,12 @@ public class TestDemoBenchmark {
         IBenchmark bench=new DemoBenchmark();
         final int workload = 5000;
         bench.initialize(workload);
+        bench.warmup();
         timer.start();
         for(int i=0;i<12;i++)
         {
             if (i == 3)
-                bench.cancel(); // simulare oprire benchmark
+                bench.cancel();
             if(i==4)
                 bench.initialize(workload);
             timer.resume();

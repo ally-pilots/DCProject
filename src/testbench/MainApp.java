@@ -32,15 +32,24 @@ public class MainApp {
         int option = scanner.nextInt();
 
         switch (option) {
-            case 1 -> runRecursionLoopUnrolling();
-            case 2 -> runHDDWriteSpeed(); //done
-            case 3 -> runHDDRandomAccess();
-            case 4 -> runDemoBenchmark(); //done
-            case 5 -> runDigitsOfPi(); //done
-            case 6 -> runFixedPoint(); //done
-            case 7 -> runFixedVsFloatingPoint(); //done
-            case 8 -> runVirtualMemory();
-            default -> logger.write("Invalid option.");
+            case 1 : runRecursionLoopUnrolling();
+                break;
+            case 2 : runHDDWriteSpeed(); //done
+                break;
+            case 3 : runHDDRandomAccess();
+                break;
+            case 4 : runDemoBenchmark(); //done
+                break;
+            case 5 : runDigitsOfPi(); //done
+                break;
+            case 6 : runFixedPoint(); //done
+                break;
+            case 7 : runFixedVsFloatingPoint(); //done
+                break;
+            case 8 : runVirtualMemory();
+                break;
+            default : logger.write("Invalid option.");
+                break;
         }
 
         System.out.println("Over and out! :p");
@@ -62,7 +71,9 @@ public class MainApp {
         } else {
             cpuBench.run(false);
         }
-        logger.write("Time: " + timer.stop() / 1e6 + " ms");
+        double time=timer.stop()/ 1e6;
+        logger.write("Time: " + time + " ms");
+        ((CPURecursionLoopUnrolling) cpuBench).setExecutionTime(time);
         logger.write("Result: " + cpuBench.getResult());
         cpuBench.clean();
     }
@@ -126,6 +137,7 @@ public class MainApp {
         System.out.print("Enter the size: ");
         final int size = scanner.nextInt();
         bench.initialize(size);
+        bench.warmup();
         timer.start();
         for(int i=0;i<12;i++)
         {
@@ -197,28 +209,28 @@ public class MainApp {
         timer.start();
         bench.run("arithmetic");
         long time = timer.stop();
-        double mops = (ARITHMETIC_OPS * (double) size) / (time / 1_000_000_000.0);
+        double mops = (ARITHMETIC_OPS * (double) size) / (time/ 1_000_000_000.0)/ 1_000_000.0;
         logger.write("For arithmetic operation:");
         logger.writeTime("Finished in", time, timeUnit);
-        logger.write("Final result: " + bench.getResult());
+        //logger.write("Final result: " + bench.getResult());
         logger.write(String.format("MOPS: %.6f", mops));
 
         timer.start();
         bench.run("simple");
         time = timer.stop();
-        mops = (SIMPLE_OPS * (double) size) / (time / 1_000_000_000.0);
+        mops = (SIMPLE_OPS * (double) size) / (time/ 1_000_000_000.0)/ 1_000_000.0;
         logger.write("For simple operation:");
         logger.writeTime("Finished in", time, timeUnit);
-        logger.write("Final result: " + bench.getResult());
+        //logger.write("Final result: " + bench.getResult());
         logger.write(String.format("MOPS: %.6f", mops));
 
         timer.start();
         bench.run("branching");
         time = timer.stop();
-        mops = (BRANCHING_OPS * (double) size) / (time / 1_000_000_000.0);
+        mops = (BRANCHING_OPS * (double) size) / (time/ 1_000_000_000.0)/ 1_000_000.0;
         logger.write("For branching operation:");
         logger.writeTime("Finished in", time, timeUnit);
-        logger.write("Final result: " + bench.getResult());
+        //logger.write("Final result: " + bench.getResult());
         logger.write(String.format("MOPS: %.6f", mops));
 
         bench.clean();
@@ -262,6 +274,8 @@ public class MainApp {
 
     private static void runVirtualMemory() {
         IBenchmark vm = new VirtualMemoryBenchmark();
+        vm.initialize();
+        vm.warmup();
         System.out.print("File size in MB: ");
         long fileSize = scanner.nextLong() * 1024 * 1024;
         System.out.print("Buffer size in KB: ");

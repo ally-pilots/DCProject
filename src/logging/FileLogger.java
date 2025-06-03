@@ -63,9 +63,9 @@ public class FileLogger implements ILogger{
         }
     }
 
-    public void writeTime(String message, long timeMs,TimeUnit unit) {
+    public void writeTime(String message, long timeNs,TimeUnit unit) {
         try {
-            bw.write(String.format("%s: %3f %s%n", message, unit.convert(timeMs), unit.suffix()));
+            bw.write(String.format("%s: %3f %s%n", message, unit.convert(timeNs), unit.suffix()));
             bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
