@@ -48,12 +48,15 @@ public class MainApp {
 
     private static void runRecursionLoopUnrolling() {
         IBenchmark cpuBench = new CPURecursionLoopUnrolling();
+
         System.out.print("Size: ");
         long size = scanner.nextLong();
         System.out.print("Unroll? (true/false): ");
         boolean unroll = scanner.nextBoolean();
+
         cpuBench.initialize(size);
         cpuBench.warmup();
+
         timer.start();
         if (unroll) {
             System.out.print("Unroll level: ");
@@ -62,7 +65,8 @@ public class MainApp {
         } else {
             cpuBench.run(false);
         }
-        logger.write("Time: " + timer.stop() / 1e6 + " ms");
+        long elapsed = timer.stop();
+        logger.write("Time: " + elapsed / 1e6 + " ms");
         logger.write("Result: " + cpuBench.getResult());
         cpuBench.clean();
     }

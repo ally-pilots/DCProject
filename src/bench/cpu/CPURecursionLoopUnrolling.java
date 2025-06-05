@@ -15,11 +15,16 @@ public class CPURecursionLoopUnrolling implements IBenchmark {
             if (isPrime(start))
                 sum += start;
 
+            if(counter > 1000){
+                throw new RuntimeException("Manual recursion limit reached");
+            }
+
             return recursive(start + 1, size, counter + 1);
 
-        } catch (StackOverflowError e) {
+        } catch (RuntimeException | StackOverflowError e) {
             if (!errorCaught) {
                 resultMessage = "Reached nr " + start + "/" + size + " after " + counter + " calls.";
+//                System.out.println(resultMessage);
                 errorCaught = true;
             }
             return 0;
@@ -28,6 +33,7 @@ public class CPURecursionLoopUnrolling implements IBenchmark {
 
     @Override
     public void run() {
+        resultMessage = "Use run(Object.. parameters) with recursive/ unroll flag!";
     }
 
     @Override
@@ -65,6 +71,9 @@ public class CPURecursionLoopUnrolling implements IBenchmark {
 
     @Override
     public String getResult() {
+//        if(resultMessage.isEmpty()){
+//            return "Sum of primes = " + sum;
+//        }
         return resultMessage;
     }
 
