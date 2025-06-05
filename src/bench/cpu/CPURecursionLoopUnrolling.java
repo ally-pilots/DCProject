@@ -119,7 +119,7 @@ public class CPURecursionLoopUnrolling implements IBenchmark {
         return true;
     }
 
-    private long recursiveUnrolled(long start, int unrollLevel, int size, int counter) {
+    private long recursiveUnrolled(long start, int unrollLevel, long size, int counter) {
         try {
             if (start > size)
                 return 0;
@@ -127,7 +127,7 @@ public class CPURecursionLoopUnrolling implements IBenchmark {
             for (int i = 0; i < unrollLevel && newStart <= size; i++, newStart++) {
                 if (isPrime(newStart)) {
                     sum += newStart;
-                    lastReached = newStart;
+                    lastPrime = newStart;
                 }
             }
 

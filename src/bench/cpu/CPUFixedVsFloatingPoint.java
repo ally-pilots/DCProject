@@ -13,7 +13,7 @@ public class CPUFixedVsFloatingPoint implements IBenchmark {
 
     @Override
     public void warmup() {
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < 10000; ++i) {
             result+= i/256 ; // fixed
             result+= i/256.0f; // floating
         }
